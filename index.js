@@ -2,8 +2,12 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const cheerio = require('cheerio');
 const request = require('request');
+require ('dotenv/config');
+const http = require('http');
+const port = process.env.PORT || 3000;
+http.createServer().listen(port);
 
-const token = 'NjczNTk5Mjk0MTAzNjE3NTg3.Xjcv5A.lGkasLc9g38a0FVb0o62OwmEyB4';
+const token = process.env.TOKEN;
 
 const PREFIX = ('!');
 
@@ -68,4 +72,9 @@ bot.on("guildMemberAdd", function(member) {
 
         member.addRole(member.guild.roles.find("name","Member"));
 })
+
+bot.on('error', err=>{
+    console.log(err);
+});
+
 bot.login(token);
